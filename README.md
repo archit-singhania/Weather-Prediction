@@ -57,9 +57,9 @@ This project delivers a robust solution for fetching, analyzing, and presenting 
   ├── android/           # Android-specific files<br>
   ├── ios/               # iOS-specific files<br>
   ├── components/        # Reusable components and services
-  <br>│  <span> ├── A.java         # Placeholder or Android integration
-  <br>│  <span> ├── weatherCard.tsx # Component to display weather information
-  <br>│  <span> └── weatherService.ts # API service for fetching weather data<br>
+  <br>│  <div> ├── A.java         # Placeholder or Android integration
+  <br>│  <div> ├── weatherCard.tsx # Component to display weather information
+  <br>│  <div> └── weatherService.ts # API service for fetching weather data<br>
   ├── __tests__/         # Unit tests<br>
   ├── App.tsx            # Main application entry point<br>
   ├── app.json           # Application configuration<br>
