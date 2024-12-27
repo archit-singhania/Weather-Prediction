@@ -1,56 +1,63 @@
-**Weather Analysis and Prediction System
-📋 Overview**
-This project delivers a robust solution for fetching, analyzing, and presenting real-time weather data using the OpenWeatherMap API. The system provides an intuitive mobile interface built with React Native for seamless user experience.
+# Weather Analysis and Presentation System
 
-**✨ Features**
-Real-time Weather Data: Fetch current weather details like temperature, humidity, and pressure.
-Air Quality Index (AQI): Display AQI metrics for specific locations.
-Mobile App UI: Optimized for Android and iOS using React Native.
-Location Search: Users can search for weather details by city or coordinates.
+## 📋 Overview
+This project delivers a robust solution for fetching, analyzing, and presenting real-time weather data using the OpenWeatherMap API. The mobile application provides an intuitive interface built with React Native to ensure a seamless user experience.
 
-**🛠️ Tech Stack**
-1. Frontend:
-  React Native
-  TypeScript for type safety.
-  Axios for API calls.
-  Custom components for modular UI design.
-2. APIs:
-  OpenWeatherMap API
-  Fetch weather and AQI data.
+---
 
-**🚀 Setup & Installation**
-Prerequisites:
-  Node.js (v16.x or higher)
-  npm or yarn
-  React Native CLI or Expo CLI
-  Steps:
-    Clone the Repository: <br>
-    git clone https://github.com/archit-singhania/Weather-Prediction.git
-    cd WeatherForecastApp
+## ✨ Features
+- **Real-time Weather Data:** Fetch details like temperature, humidity, wind speed, and pressure.
+- **Air Quality Index (AQI):** Display AQI metrics for selected locations.
+- **User-Friendly Interface:** Mobile-friendly design for Android and iOS devices.
+- **Search Functionality:** Search weather details by city name or coordinates.
 
-Install Dependencies:<br>
+---
+
+## 🛠️ Tech Stack
+- **React Native** (Frontend)
+  - TypeScript for type safety.
+  - Custom reusable components for modular development.
+- **OpenWeatherMap API** for weather and AQI data.
+
+---
+
+## 🚀 Setup & Installation
+
+### Prerequisites
+- **Node.js** (v16.x or higher)
+- **npm** or **yarn**
+- **React Native CLI** or **Expo CLI**
+  
+-- 
+
+**Steps:**
+  Clone the Repository: <br>
+  git clone https://github.com/archit-singhania/Weather-Prediction.git
+  cd WeatherForecastApp
+
+**Install Dependencies:**<br>
   npm install
   Setup Environment Variables:<br> 
 
-Create a .env file in the root directory:<br> 
+**Create a .env file in the root directory**:<br> 
   OPENWEATHER_API_KEY=your_api_key_here<br> 
   Run the Application:<br> 
 
-Start the development server/Metro bundler:<br> 
+**Start the development server/Metro bundler:**<br> 
   npx react-native start<br> 
 
-Run on Emulator or Device:<br> 
+**Run on Emulator or Device:**<br> 
   For Android: npm run android<br> 
   For iOS: npm run ios
   
-🗂️ Project Structure
+## 🗂️ Project Structure
 
 WeatherForecastApp/<br> 
 ├── android/               # Android-specific files<br> 
 ├── ios/                   # iOS-specific files<br> 
-├── components/            # Reusable components and services<br> 
+├── components/            # Reusable components and services 
 <br> │   ├── weatherCard.tsx    # Component to display weather information
-<br> │   └── weatherService.ts  # API service for fetching weather data
+<br> │   └── weatherService.ts  # API service for fetching weather data <br>
 ├── __tests__/             # Unit tests<br> 
 ├── App.tsx                # Main application entry point<br> 
 ├── app.json               # Application configuration<br> 
