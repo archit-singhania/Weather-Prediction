@@ -32,23 +32,22 @@ This project delivers a robust solution for fetching, analyzing, and presenting 
 
 **Steps:**
   Clone the Repository: <br>
-  git clone https://github.com/archit-singhania/Weather-Prediction.git
+  git clone https://github.com/archit-singhania/Weather-Prediction.git <br>
   cd WeatherForecastApp
 
 **Install Dependencies:**<br>
-  npm install
+  npm install<br>
   Setup Environment Variables:<br> 
 
 **Create a .env file in the root directory**:<br> 
   OPENWEATHER_API_KEY=your_api_key_here<br> 
-  Run the Application:<br> 
 
 **Start the development server/Metro bundler:**<br> 
   npx react-native start<br> 
 
 **Run on Emulator or Device:**<br> 
   For Android: npm run android<br> 
-  For iOS: npm run ios
+  For iOS: npm run ios <br>
   
 ## 🗂️ Project Structure
 
