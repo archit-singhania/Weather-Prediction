@@ -34,42 +34,39 @@ This project delivers a robust solution for fetching, analyzing, and presenting 
 - **React Native CLI** or **Expo CLI**
 
 ### Steps:
-1. **Clone the Repository:**
+1. **Clone the Repository:** <br>
+  git clone [https://github.com/yourusername/weather-analysis-system.git](https://github.com/archit-singhania/Weather-Prediction.git) <br>
+  cd WeatherForecastApp
 
-git clone [https://github.com/yourusername/weather-analysis-system.git](https://github.com/archit-singhania/Weather-Prediction.git)
-cd WeatherForecastApp
+2. **Install Dependencies:**<br>
+  npm install
 
-2. **Install Dependencies:**
-npm install
+3. **Setup Environment Variables:** <br>
+  Create a .env file in the root directory:<br>
+  OPENWEATHER_API_KEY=your_api_key_here
 
-3. **Setup Environment Variables:**
+4. **Run the Application:**<br>
+  Start the development server/metro bundler:<br>
+  npx react-native start
 
-Create a .env file in the root directory:
-OPENWEATHER_API_KEY=your_api_key_here
-
-4. **Run the Application:**
+6. Use an emulator or a physical device to run the app.<br>
    
-Start the development server/metro bundler:
-npx react-native start
+🗂️ Project Structure <br>
 
-5. Use an emulator or a physical device to run the app.
-   
-🗂️ Project Structure
-
-  WeatherForecastApp/
-  ├── android/           # Android-specific files
-  ├── ios/               # iOS-specific files
-  ├── components/        # Reusable components and services
-  │   ├── A.java         # Placeholder or Android integration
-  │   ├── weatherCard.tsx # Component to display weather information
-  │   └── weatherService.ts # API service for fetching weather data
-  ├── __tests__/         # Unit tests
-  ├── App.tsx            # Main application entry point
-  ├── app.json           # Application configuration
-  ├── index.js           # Entry point for React Native
-  ├── package.json       # Dependencies and scripts
-  ├── README.md          # Documentation
-  └── tsconfig.json      # TypeScript configuration 
+  WeatherForecastApp/<br>
+  ├── android/           # Android-specific files<br>
+  ├── ios/               # iOS-specific files<br>
+  ├── components/        # Reusable components and services<br>
+  │   ├── A.java         # Placeholder or Android integration<br>
+  │   ├── weatherCard.tsx # Component to display weather information<br>
+  │   └── weatherService.ts # API service for fetching weather data<br>
+  ├── __tests__/         # Unit tests<br>
+  ├── App.tsx            # Main application entry point<br>
+  ├── app.json           # Application configuration<br>
+  ├── index.js           # Entry point for React Native<br>
+  ├── package.json       # Dependencies and scripts<br>
+  ├── README.md          # Documentation<br>
+  └── tsconfig.json      # TypeScript configuration <br>
 
 💡 Usage
 
