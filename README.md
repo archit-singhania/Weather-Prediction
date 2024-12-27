@@ -33,7 +33,7 @@ This project delivers a robust solution for fetching, analyzing, and presenting 
 **Steps:**
   Clone the Repository: <br>
   git clone https://github.com/archit-singhania/Weather-Prediction.git <br>
-  cd WeatherForecastApp
+  cd WeatherForecastApp<br>
 
 **Install Dependencies:**<br>
   npm install<br>
@@ -65,5 +65,5 @@ WeatherForecastApp/<br>
 ├── README.md              # Documentation<br> 
 └── tsconfig.json          # TypeScript configuration<br> 
 
-💡 Usage<br> 
+## 💡 Usage<br> 
 Launch the app and search for a city or region to get detailed weather data and AQI. Navigate through the interface to explore the features.
