@@ -56,9 +56,9 @@ This project delivers a robust solution for fetching, analyzing, and presenting 
   WeatherForecastApp/<br>
   ├── android/           # Android-specific files<br>
   ├── ios/               # iOS-specific files<br>
-  ├── components/        # Reusable components and services<br>
-  │   ├── A.java         # Placeholder or Android integration<br>
-  │   ├── weatherCard.tsx # Component to display weather information<br>
+  ├── components/        # Reusable components and services
+  │   ├── A.java         # Placeholder or Android integration
+  │   ├── weatherCard.tsx # Component to display weather information
   │   └── weatherService.ts # API service for fetching weather data<br>
   ├── __tests__/         # Unit tests<br>
   ├── App.tsx            # Main application entry point<br>
@@ -68,7 +68,7 @@ This project delivers a robust solution for fetching, analyzing, and presenting 
   ├── README.md          # Documentation<br>
   └── tsconfig.json      # TypeScript configuration <br>
 
-💡 Usage
+💡 Usage<br>
 
-Launch the app and search for a city or region to get detailed weather data and AQI.
+Launch the app and search for a city or region to get detailed weather data and AQI.<br>
 Navigate through the interface to explore the features.
