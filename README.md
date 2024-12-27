@@ -35,7 +35,7 @@ This project delivers a robust solution for fetching, analyzing, and presenting 
 
 ### Steps:
 1. **Clone the Repository:**
-  git clone https://github.com/yourusername/weather-analysis-system.git
+  git clone [https://github.com/yourusername/weather-analysis-system.git](https://github.com/archit-singhania/Weather-Prediction.git)
   cd WeatherForecastApp
 
 2. **Install Dependencies:**
