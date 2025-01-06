@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const WEATHER_API_KEY = '1c1de2436e2e11d145dcca5755907c2f';
-const WEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';  // Changed to direct weather endpoint
+const WEATHER_API_KEY = '380641d202faba1ced587eef1b25c004';
+const WEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const AQI_BASE_URL = 'https://api.openweathermap.org/data/2.5/air_pollution';
+const FORECAST_BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast';
 
 interface WeatherResponse {
 weather: any;
@@ -10,6 +11,17 @@ aqi: any;
 error?: boolean;
 errorMessage?: string;
 }
+
+export const fetchForecast = async (city: string): Promise<any> => {
+try {
+const forecastUrl = `${FORECAST_BASE_URL}?q=${encodeURIComponent(city)}&appid=${WEATHER_API_KEY}&units=metric`;
+const response = await axios.get(forecastUrl);
+return response.data;
+} catch (error) {
+console.error('Forecast fetch error:', error);
+    throw error;
+  }
+};
 
 export const fetchWeatherAndAqi = async (city: string): Promise<WeatherResponse> => {
 try {

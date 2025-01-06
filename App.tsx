@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { fetchWeatherAndAqi } from './components/weatherService';
+import { fetchWeatherAndAqi, fetchForecast } from './components/weatherService';
 import WeatherCard from './components/weatherCard';
+import ForecastCard from './components/forecastCard';
 
 interface WeatherData {
   weather: {
@@ -25,9 +26,11 @@ interface WeatherData {
 function App(): JSX.Element {
   const [city, setCity] = useState<string>('');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [forecastData, setForecastData] = useState<any>(null);
+  const [forecastPeriod, setForecastPeriod] = useState<'3day' | '5day' >('3day');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'weather' | 'aqi'>('weather');
+  const [activeTab, setActiveTab] = useState<'weather' | 'aqi' | 'forecast'>('weather');
 
   const handleFetchData = async (): Promise<void> => {
     if (!city) {
@@ -38,23 +41,23 @@ function App(): JSX.Element {
     setLoading(true);
     setError(false);
 
-   // In the handleFetchData function in App.tsx
-   try {
-     const response = await fetchWeatherAndAqi(city);
+    try {
+      const [weatherResponse, forecastResponse] = await Promise.all([
+        fetchWeatherAndAqi(city),
+        fetchForecast(city),
+      ]);
 
-     if (response.error) {
-       setError(true);
-       alert(response.errorMessage || 'City not found. Please check the spelling and try again.');
-     } else {
-       setWeatherData({
-         weather: response.weather,
-         aqi: response.aqi
-       });
-     }
-   } catch (error) {
-     setError(true);
-     alert('Failed to fetch weather data. Please try again.');
-   } finally {
+      if (weatherResponse.error) {
+        setError(true);
+        alert(weatherResponse.errorMessage || 'City not found. Please check the spelling and try again.');
+      } else {
+        setWeatherData(weatherResponse);
+        setForecastData(forecastResponse);
+      }
+    } catch (error) {
+      setError(true);
+      alert('Failed to fetch weather data. Please try again.');
+    } finally {
       setLoading(false);
     }
   };
@@ -100,6 +103,14 @@ function App(): JSX.Element {
                 Air Quality
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.tab, activeTab === 'forecast' && styles.activeTab]}
+              onPress={() => setActiveTab('forecast')}
+            >
+              <Text style={[styles.tabText, activeTab === 'forecast' && styles.activeTabText]}>
+                Forecast
+              </Text>
+            </TouchableOpacity>
           </View>
         )}
 
@@ -107,13 +118,41 @@ function App(): JSX.Element {
           <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
         ) : (
           weatherData && (
-            <WeatherCard
-              weather={weatherData.weather}
-              aqi={weatherData.aqi}
-              loading={loading}
-              error={error}
-              activeTab={activeTab}
-            />
+            <>
+              {activeTab === 'weather' && <WeatherCard weather={weatherData.weather} aqi={weatherData.aqi} activeTab="weather" />}
+              {activeTab === 'aqi' && <WeatherCard weather={weatherData.weather} aqi={weatherData.aqi} activeTab="aqi" />}
+              {activeTab === 'forecast' && forecastData && (
+                <>
+                  <View style={styles.periodSelector}>
+                    <TouchableOpacity
+                      style={[styles.periodButton, forecastPeriod === '3day' && styles.activePeriod]}
+                      onPress={() => setForecastPeriod('3day')}
+                    >
+                      <Text style={[styles.periodText, forecastPeriod === '3day' && styles.activePeriodText]}>3 Days</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.periodButton, forecastPeriod === '5day' && styles.activePeriod]}
+                      onPress={() => setForecastPeriod('5day')}
+                    >
+                      <Text style={[styles.periodText, forecastPeriod === '5day' && styles.activePeriodText]}>5 Days</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.periodButton, styles.disabledButton]}
+                        disabled
+                      >
+                        <Text style={[styles.periodText, styles.disabledText]}>7 Days</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={[styles.periodButton, styles.disabledButton]}
+                        disabled
+                      >
+                        <Text style={[styles.periodText, styles.disabledText]}>10 Days</Text>
+                      </TouchableOpacity>
+                  </View>
+                  <ForecastCard forecast={forecastData} period={forecastPeriod} />
+                </>
+              )}
+            </>
           )
         )}
       </View>
@@ -144,22 +183,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#fff',
     fontSize: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   searchButton: {
     backgroundColor: '#4a90e2',
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   searchButtonText: {
     color: '#fff',
@@ -172,11 +201,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#fff',
     padding: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   tab: {
     flex: 1,
@@ -197,7 +221,31 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 20,
-  }
+  },
+  periodSelector: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 15,
+    gap: 10,
+  },
+  periodButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: '#f0f0f0',
+    minWidth: 80,
+    alignItems: 'center',
+  },
+  activePeriod: {
+    backgroundColor: '#4a90e2',
+  },
+  periodText: {
+    color: '#666',
+    fontWeight: '600',
+  },
+  activePeriodText: {
+    color: '#fff',
+  },
 });
 
 export default App;
