@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet, ScrollView, Activi
 import { fetchWeatherAndAqi, fetchForecast } from './components/weatherService';
 import WeatherCard from './components/weatherCard';
 import ForecastCard from './components/forecastCard';
+import WeatherMap from './components/weatherMap';
 
 interface WeatherData {
   weather: {
@@ -27,10 +28,10 @@ function App(): JSX.Element {
   const [city, setCity] = useState<string>('');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [forecastData, setForecastData] = useState<any>(null);
-  const [forecastPeriod, setForecastPeriod] = useState<'3day' | '5day' >('3day');
+  const [forecastPeriod, setForecastPeriod] = useState<'3day' | '5day'>('3day');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'weather' | 'aqi' | 'forecast'>('weather');
+  const [activeTab, setActiveTab] = useState<'weather' | 'aqi' | 'forecast' | 'map'>('weather');
 
   const handleFetchData = async (): Promise<void> => {
     if (!city) {
@@ -111,6 +112,14 @@ function App(): JSX.Element {
                 Forecast
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.tab, activeTab === 'map' && styles.activeTab]}
+              onPress={() => setActiveTab('map')}
+            >
+              <Text style={[styles.tabText, activeTab === 'map' && styles.activeTabText]}>
+                Map
+              </Text>
+            </TouchableOpacity>
           </View>
         )}
 
@@ -137,20 +146,29 @@ function App(): JSX.Element {
                       <Text style={[styles.periodText, forecastPeriod === '5day' && styles.activePeriodText]}>5 Days</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.periodButton, styles.disabledButton]}
-                        disabled
-                      >
-                        <Text style={[styles.periodText, styles.disabledText]}>7 Days</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={[styles.periodButton, styles.disabledButton]}
-                        disabled
-                      >
-                        <Text style={[styles.periodText, styles.disabledText]}>10 Days</Text>
-                      </TouchableOpacity>
+                      style={[styles.periodButton, styles.disabledButton]}
+                      disabled
+                    >
+                      <Text style={[styles.periodText, styles.disabledText]}>7 Days</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.periodButton, styles.disabledButton]}
+                      disabled
+                    >
+                      <Text style={[styles.periodText, styles.disabledText]}>10 Days</Text>
+                    </TouchableOpacity>
                   </View>
                   <ForecastCard forecast={forecastData} period={forecastPeriod} />
                 </>
+              )}
+              {activeTab === 'map' && weatherData.weather && (
+                <WeatherMap
+                  city={weatherData.weather.name}
+                  coordinates={{
+                    lat: weatherData.weather.coord.lat,
+                    lon: weatherData.weather.coord.lon
+                  }}
+                />
               )}
             </>
           )
@@ -245,6 +263,12 @@ const styles = StyleSheet.create({
   },
   activePeriodText: {
     color: '#fff',
+  },
+  disabledButton: {
+    opacity: 0.5,
+  },
+  disabledText: {
+    color: '#999',
   },
 });
 
